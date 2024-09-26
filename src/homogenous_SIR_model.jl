@@ -2,7 +2,7 @@ module homogenous_SIR_model
 
 using Plots
 using DifferentialEquations
-using Test
+#using Test
 
 export define_town_model, solve_system, plot_model_solution
 
