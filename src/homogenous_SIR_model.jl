@@ -66,24 +66,6 @@ function define_town_model(model::Symbol, parameters::Vector, initial_pop::Vecto
         S, I, R = pop
         
         lambda = c * Beta_c * I / N #I(t) / N: Chance of infectious contact given homogenous population 
-        #R_0 = c * 1/gamma * Beta_c # Reproduction number
-    
-        dpop[1] = -lambda * S # dS = -lambda*S
-        dpop[2] = lambda * S - gamma * I # dI = lambda * S - gamma * R
-        dpop[3] = gamma * I # dR = gamma * R
-    
-    end
-
-    #Operates using R0 and the herd immunity threshold criteria
-    function town_SIR_herd!(dpop, pop, param::Vector, t)
-        N = sum(pop)
-        c, Beta_c, gamma = param 
-        #c: Number of daily contacts
-        #Beta_c: Chance of contracting disease from infected contact
-        #gamma: Probability of recovering from infection each day
-        S, I, R = pop
-        
-        lambda = c * Beta_c * I / N #I(t) / N: Chance of infectious contact given homogenous population 
         R_0 = c * 1/gamma * Beta_c # Reproduction number
         p_c = 1 - 1/R_0
 
