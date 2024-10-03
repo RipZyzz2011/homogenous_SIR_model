@@ -93,17 +93,9 @@ function define_town_model(model::Symbol, parameters::Vector, initial_pop::Vecto
         end
     
         
-        p_c = 1 - 1/R_0
-
-        #If the herd immunity threshold is reached, set Beta_c to 0)
-        if((I/N) >= p_c)
-            Beta_c = 0
-        end
-    
-        
         dpop[1] = -lambda * S # dS = -lambda*S
         dpop[2] = gamma * I * (c* 1/gamma * Beta_c * S/N - 1)
-        dpop[2] = gamma * I * (c* 1/gamma * Beta_c * S/N - 1)
+        #dpop[2] = gamma * I * (c* 1/gamma * Beta_c * S/N - 1)
         dpop[3] = gamma * I # dR = gamma * R
     
     
