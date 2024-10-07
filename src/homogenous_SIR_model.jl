@@ -119,13 +119,3 @@ end
 
 end
 
-#Calculate the sum of the error at each datapoint between the real values and the model values
-#Squares error between values, useful for evaluating the efficacy of the beta parameter
-function error(model, data)
-    err_sum = 0
-    for i in 1:(length(data))
-        err_sum += (model[i] - data[i])^2
-    end
-
-    return err_sum
-end
