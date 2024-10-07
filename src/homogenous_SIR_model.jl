@@ -65,7 +65,7 @@ function define_town_model(model::Symbol, parameters::Vector, initial_pop::Vecto
         #gamma: Probability of recovering from infection each day
         S, I, R = pop
         
-        lambda = c * Beta_c * I / N #I(t) / N: Chance of infectious contact given homogenous population 
+        
         R_0 = c * 1/gamma * Beta_c # Reproduction number
         p_c = 1 - 1/R_0
 
@@ -73,7 +73,8 @@ function define_town_model(model::Symbol, parameters::Vector, initial_pop::Vecto
         if((I/N) >= p_c)
             Beta_c = 0
         end
-    
+        
+        lambda = c * Beta_c * I / N #I(t) / N: Chance of infectious contact given homogenous population 
         
         dpop[1] = -lambda * S # dS = -lambda*S
         dpop[2] = gamma * I * (c* 1/gamma * Beta_c * S/N - 1)
@@ -116,4 +117,15 @@ function plot_model_solution(sol::ODESolution)
     plot(sol, xlabel = "Time(Days)", ylabel = "Number of people in Category", title = "SIR Model")
 end
 
+end
+
+#Calculate the sum of the error at each datapoint between the real values and the model values
+#Squares error between values, useful for evaluating the efficacy of the beta parameter
+function error(model, data)
+    err_sum = 0
+    for i in 1:(length(data))
+        err_sum += (model[i] - data[i])^2
+    end
+
+    return err_sum
 end
