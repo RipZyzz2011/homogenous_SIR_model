@@ -105,7 +105,7 @@ Produces the solution to the model created by define_town_model
 
 =#
 function solve_system(prob::ODEProblem)
-    return solve(prob)
+    return solve(prob, saveat = 1)
 end
 #=
 Function: plot_model_solution
