@@ -4,7 +4,7 @@ using Plots
 using DifferentialEquations
 #using Test
 
-export define_town_model, solve_system, plot_model_solution, errors
+export define_town_model, solve_system, plot_model_solution, errors, town_SIRS!, town_SIRS_Intervention!
 
 # Defines an SIR model for the town based on the user input of model type given as a symbol.
 # The input vectors define the parameters for operation (rate of infection, contact, etc), the initial 
