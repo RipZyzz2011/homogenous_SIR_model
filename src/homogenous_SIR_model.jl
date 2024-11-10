@@ -4,7 +4,7 @@ using Plots
 using DifferentialEquations
 #using Test
 
-export define_town_model, solve_system, plot_model_solution
+export define_town_model, solve_system, plot_model_solution, errors
 
 # Defines an SIR model for the town based on the user input of model type given as a symbol.
 # The input vectors define the parameters for operation (rate of infection, contact, etc), the initial 
@@ -115,6 +115,15 @@ Plots the solved model over the time span it was solved from
 
 function plot_model_solution(sol::ODESolution)
     plot(sol, xlabel = "Time(Days)", ylabel = "Number of people in Category", title = "SIR Model")
+end
+
+function errors(model, data)
+    err_sum = 0
+    for i in 1:(length(data))
+        err_sum += (model[i] - data[i])^2
+    end
+
+    return err_sum
 end
 
 end
