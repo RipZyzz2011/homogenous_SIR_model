@@ -170,7 +170,7 @@ function town_SIRS_Intervention!(dpop, pop, param, t)
 
 end
 
-#Calculate the sum of the error at each datapoint between the real values and the model values
+#Calculate the sum of the linear-least square error at each datapoint between the real values and the model values
 #Squares error between values, useful for evaluating the efficacy of the beta parameter
 function error_squares(model, data)
     err_sum = 0
