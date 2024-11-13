@@ -126,7 +126,7 @@ function errors(model, data)
     return err_sum
 end
 
-#SIR model that now incorporates re-infection and severe illness state
+#SIR model that now incorporates re-infection and a severe illness state
 function town_SIRS!(dpop, pop, param, t)
     N = sum(pop)
     # alpha represents the re-infection rate
@@ -145,7 +145,7 @@ function town_SIRS!(dpop, pop, param, t)
 
 end
 
-#SIRS model that integrates an intervention
+#SIRS model that integrates an intervention alongside the severe illness and reinfection
 #= 
   It is anticipated that this intervention will reduce the probability of transmission from an infected person
    to a susceptible person by about 30% (this is the efficacy of the intervention). 
