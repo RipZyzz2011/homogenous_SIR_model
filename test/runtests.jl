@@ -3,6 +3,7 @@ using Test
 using Pkg
 Pkg.add("Revise")
 using Revise
+using DifferentialEquations
 
 
 @testset "townSIR_basic_set" begin
