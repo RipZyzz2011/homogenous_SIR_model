@@ -55,3 +55,47 @@ end
     @test sol[end][2] < sol[1][2]  # Infections should decrease when herd immunity threshold is met
     
 end
+
+# Test the implementation of the severe illness and resusceptance
+@testset "townSIRS_set" begin
+    # Make use of the data parameters from the project task
+    #Town Population, assume that there was a single person infected on day 1
+    N = 6000
+    I = 1
+    S = N - I
+    I_s = 0
+    R = 0
+
+    c = 8 #Number of daily contacts on average
+    gamma = 1/7 # Daily rate of recovery if it takes 7 days to recover typically
+    gamma_s = 1/14 # Daily rate of recovery from severe illness
+    p_s = 0.20 # Average probability of severe infection
+    alpha = 1/30 # Daily rate of resusceptance if the average time for it is a month
+
+    Beta = 0.03697
+    param = [c, Beta, gamma, alpha, p_s, gamma_s]
+    t_span = (0, 150)
+    pop0 = [S, I, I_s, R]
+
+    # Edge case testing
+    # See that the number of infections goes to 0 if alpha = 0
+    alpha = 0
+    model =  ODEProblem(town_SIRS!, pop0, t_span, param)
+    sol = solve(model, saveat = 1)
+    I_model = [u[2] for u in sol.u]
+    Is_model = [u[3] for u in sol.u]
+
+    @test I_model[150] == 0 && Is_model[150] == 0
+     
+
+    # Likewise, test that if alpha is large enough, the number of infected never goes
+    # to 0
+    alpha = 1/30
+    model =  ODEProblem(town_SIRS!, pop0, t_span, param)
+    sol = solve(model, saveat = 1)
+    I_model = [u[2] for u in sol.u]
+    Is_model = [u[3] for u in sol.u]
+
+    @test I_model[150] != 0 && Is_model[150] != 0
+     
+end
