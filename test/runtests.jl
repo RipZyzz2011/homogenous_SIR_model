@@ -1,5 +1,9 @@
 using homogenous_SIR_model
 using Test
+using Pkg
+Pkg.add("Revise")
+using Revise
+
 
 @testset "townSIR_basic_set" begin
     #Test that no one gets infected when a population has I = 0
